@@ -9,6 +9,7 @@ module.exports = class Update {
   constructor (app) {
     this.app = app
 
+
     this.run()
   }
 
