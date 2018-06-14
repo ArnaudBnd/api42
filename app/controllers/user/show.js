@@ -1,5 +1,6 @@
 // Core
 const mock = require('../../models/get-user.js')
+const schemaUser = require('../../models/schemaUser.js')
 
 module.exports = class Show {
   constructor (app) {
@@ -13,22 +14,26 @@ module.exports = class Show {
    */
   middleware () {
     this.app.get('/user/show/:id', (req, res) => {
-      try {
-        if (!req.params || !req.params.id.length) {
-          res.status(404).json({
-            code: 404,
-            message: 'Not Found'
-          })
-        }
 
-        res.status(200).json(mock[req.params.id] || {})
-      } catch (e) {
-        console.error(`[ERROR] user/show/:id -> ${e}`)
-        res.status(400).json({
-          'code': 400,
-          'message': 'Bad request'
+      schemaUser.find({_id: req.params.id}).exec().then(resp => {
+        if (resp.n === 0) {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
+          })
+        } else {
+          res.status(200).json({
+            resp,
+            'code': 200,
+            'message': 'Good request'
+          }).catch(err => {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
+          })
         })
-      }
+        }
+      })
     })
   }
 

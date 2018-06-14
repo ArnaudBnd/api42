@@ -1,9 +1,12 @@
 // Core
 const mock = require('../../models/get-user.js')
 const validator = require('node-validator')
+const schemaUser = require('../../models/schemaUser.js')
+
 
 const check = validator.isObject()
   .withRequired('name', validator.isString())
+  .withOptional('gender', validator.isString({ regex: /^male|femal$/ }))
 
 module.exports = class Update {
   constructor (app) {
@@ -18,29 +21,33 @@ module.exports = class Update {
    */
   middleware () {
     this.app.put('/user/update/:id', validator.express(check), (req, res) => {
-      try {
-        if (!req.params || !req.params.id.length) {
-          res.status(404).json({
-            code: 404,
-            message: 'Not Found'
+
+        schemaUser.update({
+          _id: req.params.id
+        }, {
+          $set: {
+            name: req.body.name,
+            gender: req.body.gender
+          }
+        }).exec().then(resp => {
+        if (resp.n === 0) {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
+          })
+        } else {
+          res.status(200).json({
+            'code': 200,
+            'message': 'Good request'
           })
         }
-
-        const name = req.body.name
-        const user = mock[req.params.id]
-
-        user.name = name
-
-        res.status(200).json({
-          [req.params.id]: user
         })
-      } catch (e) {
-        console.error(`[ERROR] user/update -> ${e}`)
-        res.status(400).json({
-          'code': 400,
-          'message': 'Bad request'
+        .catch(err => {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
+          })
         })
-      }
     })
   }
 

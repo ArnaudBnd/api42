@@ -1,5 +1,5 @@
 // Core
-const mock = require('../../models/get-user.js')
+const schemaUser = require('../../models/schemaUser.js')
 
 module.exports = class Destroy {
   constructor (app) {
@@ -13,24 +13,25 @@ module.exports = class Destroy {
    */
   middleware () {
     this.app.delete('/user/destroy/:id', (req, res) => {
-      try {
-        if (!req.params || !req.params.id.length) {
-          res.status(404).json({
-            code: 404,
-            message: 'Not Found'
+
+        schemaUser.deleteOne({_id: req.params.id}).exec().then(resp => {
+        if (resp.n === 0) {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
           })
-        }
-
-        delete mock[req.params.id]
-
-        res.status(200).json(mock || {})
-      } catch (e) {
-        console.error(`[ERROR] user/destroy/:id -> ${e}`)
-        res.status(400).json({
-          'code': 400,
-          'message': 'Bad request'
+        } else {
+          res.status(200).json({
+            'code': 200,
+            'message': 'Good request'
+          }).catch(err => {
+          res.status(400).json({
+            'code': 400,
+            'message': 'Bad request'
+          })
         })
-      }
+        }
+      })
     })
   }
 

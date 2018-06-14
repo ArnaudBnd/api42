@@ -26,6 +26,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "mocha": "^5.2.0",
+    "mongodb": "^3.0.10",
     "mongoose": "^5.1.4"
   }
 }

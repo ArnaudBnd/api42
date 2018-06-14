@@ -5,6 +5,9 @@ const cors = require('cors')
 const express = require('express')
 const helmet = require('helmet')
 const MongoClient = require('mongodb').MongoClient
+// getting-started.js
+var mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost:27017/api42')
 
 // Core
 const routes = require('./controllers/routes.js')
@@ -50,15 +53,11 @@ module.exports = class Server {
     })
   }
 
-  /**
-   * mongo
-   */
-  mongoConnect () {
-    const url = "mongodb://localhost:27017/";
+  mongooseConnect () {
+    var db = mongoose.connection;
 
-    MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-  });
+    db.on('error', console.error.bind(console, 'connection error:'));
+    db.once('open', function() {console.log('you are connected')});
   }
 
   /**
@@ -77,7 +76,7 @@ module.exports = class Server {
       this.security()
       this.middleware()
       this.routes()
-      this.mongoConnect()
+      this.mongooseConnect()
       this.app.listen(4000)
     } catch (e) {
       console.error(`[ERROR] Server -> ${e}`)
