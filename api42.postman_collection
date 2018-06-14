@@ -1,0 +1,111 @@
+{
+	"variables": [],
+	"info": {
+		"name": "api42",
+		"_postman_id": "ca473342-3bc2-05e8-8f71-178d5b412748",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:4000/user/create",
+			"request": {
+				"url": "http://localhost:4000/user/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"thomas\",\n\t\"gender\": \"male\"\n}"
+				},
+				"description": "Add user "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/user/create",
+			"request": {
+				"url": "http://localhost:4000/user/destroy/5b1fcc68b3b7a752e07ec414",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Update user"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/user/create",
+			"request": {
+				"url": "http://localhost:4000/user/show/5b1fcd4ab3b7a752e07ec415",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": "Delete User"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/user/create",
+			"request": {
+				"url": "http://localhost:4000/user/create",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"thomas\",\n\t\"gender\": \"male\"\n}"
+				},
+				"description": "Add user "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:4000/user/create",
+			"request": {
+				"url": "http://localhost:4000/user/update/5b20b885da7ca15a8fd6d65e",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\" : \"thomas\",\n    \"gender\" : \"femal\"\n}"
+				},
+				"description": "Update User"
+			},
+			"response": []
+		}
+	]
+}
