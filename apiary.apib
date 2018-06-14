@@ -1,0 +1,102 @@
+FORMAT: 1A
+HOST: http://localhost:4000/user/
+
+# api42
+
+Création d'API CREATE - UPDATE - SEARCH - DELETE - SEARCH 
+
+## Create User [/create]
+
+### Create a user [POST]
+
++ Request (application/json)
+
+            {
+                "name": "thomas",
+                "gender": "male",
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /create
+
+    + Body
+
+            {
+                "_id": "5b2117ac2adb7d6721d9c94d",
+                "name": "thomas",
+                "gender": "male"
+            }
+            
+## Update User [/update/5b20b885da7ca15a8fd6d65e]
+            
+### Update a user [PUT]
+
++ Request (application/json)
+
+            {
+                "name": "thomas",
+                "gender": "femal",
+            }
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /update
+
+    + Body
+
+            {
+                "code": 200,
+                "message": "Good request"
+            }
+
+
+## Show User [/show/5b1fcd4ab3b7a752e07ec415]
+            
+### Show a user [GET]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /show
+
+    + Body
+
+            {
+                "resp": [
+                    {
+                        "_id": "5b1fcd4ab3b7a752e07ec415",
+                        "name": "nicolas",
+                        "gender": "femal",
+                        "__v": 0
+                    }
+                ],
+                "code": 200,
+                "message": "Good request"
+            }
+            
+## Delete User [/destroy/5b1fcc68b3b7a752e07ec414]
+            
+### Delete a user [DELETE]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /destroy
+
+    + Body
+
+            {
+                "code": 200,
+                "message": "Good request"
+            }
