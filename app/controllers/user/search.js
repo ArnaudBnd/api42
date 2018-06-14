@@ -16,9 +16,7 @@ module.exports = class Search {
    * Middleware
    */
   middleware () {
-    this.app.post('/user/search/:word', validator.express(check), (req, res) => {
-      console.log(req.params);
-
+    this.app.get('/user/search/:word', validator.express(check), (req, res) => {
         const { word } = req.params
 
         schemaUser.find({

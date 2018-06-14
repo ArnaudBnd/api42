@@ -10,6 +10,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
+let userId = '';
+
 /**
  * GET /user
  */
@@ -22,7 +24,8 @@ describe('GET /user', () => {
       .post('/user/create')
       .send(payload)
       .end((err, res) => {
-          res.should.have.status(200);
+          res.should.have.status(200)
+          userId = res.body._id
 
           done();
       });
@@ -43,7 +46,7 @@ describe('GET /user', () => {
 
   it('GET /show:id should not get an user by false id', done => {
     chai.request(app)
-      .get('/user/show/5b1fcd4ab3b7a752e07ec415')
+      .get(`/user/show/${userId}`)
       .end((err, res) => {
           res.should.have.status(200);
 
@@ -72,40 +75,24 @@ describe('GET /user', () => {
       });
   });
 
-  it('POST /search should search user 1 and 2', done => {
-    const payload = {'ids': ['1', '3']};
+  it('GET /search should search user ', done => {
+    const payload = {'id': userId};
 
     chai.request(app)
-      .post('/user/search')
-      .send(payload)
+      .get('/user/search/jp')
       .end((err, res) => {
           res.should.have.status(200);
+          //console.log(res.body.data.length)
 
           done();
       });
   });
-
-  it('POST /search should check the payload body is false', done => {
-    const result = '{"errors":[{"parameter":"id","value":["1","3"],"message":"Unexpected value."},{"parameter":"ids","message":"Required value."}]}';
-    const payload = {'id': ['1', '3']};
-
-    chai.request(app)
-      .post('/user/search')
-      .send(payload)
-      .end((err, res) => {
-          res.should.have.status(400);
-          res.text.should.be.eql(result);
-
-          done();
-      });
-  });
-
 
   it('PUT /update should update user', done => {
     const payload = {"name":"thomas","gender":"femal"};
 
     chai.request(app)
-      .put('/user/update/5b20b885da7ca15a8fd6d65e')
+      .put(`/user/update/${userId}`)
       .send(payload)
       .end((err, res) => {
           res.should.have.status(200);
@@ -117,7 +104,7 @@ describe('GET /user', () => {
   it('DELETE /destroy/:id should delete an user', done => {
 
     chai.request(app)
-      .delete('/user/destroy/5b213033cfaa876b142c66a5')
+      .delete(`/user/destroy/${userId}`)
       .end((err, res) => {
           res.should.have.status(200);
 
