@@ -3,7 +3,7 @@ HOST: http://localhost:4000/user/
 
 # api42
 
-Création d'API CREATE - UPDATE - SEARCH - DELETE - SEARCH 
+Documentation API CREATE - UPDATE - SEARCH - DELETE - SEARCH 
 
 ## Create User [/create]
 
@@ -30,7 +30,7 @@ Création d'API CREATE - UPDATE - SEARCH - DELETE - SEARCH
                 "gender": "male"
             }
             
-## Update User [/update/5b20b885da7ca15a8fd6d65e]
+## Update User [/update/:id]
             
 ### Update a user [PUT]
 
@@ -55,7 +55,7 @@ Création d'API CREATE - UPDATE - SEARCH - DELETE - SEARCH
             }
 
 
-## Show User [/show/5b1fcd4ab3b7a752e07ec415]
+## Show User [/show/:id]
             
 ### Show a user [GET]
 
@@ -82,7 +82,34 @@ Création d'API CREATE - UPDATE - SEARCH - DELETE - SEARCH
                 "message": "Good request"
             }
             
-## Delete User [/destroy/5b1fcc68b3b7a752e07ec414]
+## Search User [/search/:word]
+            
+### Search a user [GET]
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Headers
+
+            Location: /show
+
+    + Body
+
+            {
+                "data": [
+                    {
+                        "_id": "5b1fcd4ab3b7a752e07ec415",
+                        "name": "nicolas",
+                        "gender": "femal",
+                        "__v": 0
+                    }
+                ],
+                "code": 200,
+                "message": "Good request"
+            }
+            
+## Delete User [/destroy/:id]
             
 ### Delete a user [DELETE]
 
